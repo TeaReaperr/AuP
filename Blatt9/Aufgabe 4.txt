@@ -1,0 +1,19 @@
+Aufgabe 4
+
+IA:
+length (blaetter (Blatt el)) <= 2^(hoehe (Blatt el))
+length [el] <= 2^0
+length [el] <= 1                                        
+length (el:[]) <= 1                                     (Hasskell)
+1 + length [] <= 1                                      (Def length)
+1 + 0 <= 1                                              (Def length)
+1 <= 1
+
+IV:
+length(blaetter baum) <= 2^(heohe baum)
+
+IS:
+length (blaetter (Verzweigung links rechts)) <= 2^(hoehe (Verzweigung links rechts))
+                                             <= 2^(1 + max (hoehe links) (hoehe rechts))
+
+length (blaetter links ++ blaetter rechts)

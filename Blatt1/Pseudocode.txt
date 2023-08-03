@@ -1,0 +1,25 @@
+Kaffeeautomat
+- Wähle Getränk
+- Werfe Geld ein
+- if zu viel Geld eingeworfen 
+ 	Rückgeld zahlen
+- else kein Rückgeld zahlen 
+- If kein eigener Becher
+	Einwegbecher zur verfügung stellen
+- else eingestellten Becher erkennen
+- while Becher nicht voll
+ 	Becher Füllen
+Weg Zur Uni
+- Zum Zug laufen
+- einsteigen
+- while nicht in Cottbus
+ 	Mit Zug fahren
+- Zur Uni laufen
+Essen in der Pfanne zubereiten
+- Zutaten bereitstellen
+- Pfanne auf den Herd stellen
+- Herd anschalten
+- Öl in die Pfanne geben
+- Essen in die Pfanne geben
+- while essen nicht fertig gebraten
+ 	essen in der Pfanne lassen

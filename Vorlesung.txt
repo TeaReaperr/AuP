@@ -1,0 +1,245 @@
+insertionSort :: Ord a => [a] -> [a]
+insertionSort [] = []
+insertionSort (x:xs) = insert x (insertionSort xs)
+
+insert :: Ord a => a -> [a] -> [a]
+insert a [] = [a]
+insert a (x:xs) =
+    if a <= x then a : (x:xs)
+    else x : insert a xs
+
+-- 2 Fälle
+--      n = 0    iSort [] = []
+--      1 Schritt
+--      n > 0    iSort (x:xs)
+--               insert x (iSort xs)
+--               1 Schritt Termaufbau
+--               + Schritte für (iSort xs)
+--               + Schritte für (insert x ...)
+
+-- (TiSort best) (0) = 1
+-- (TiSort best) (n) = 1 + (TiSort best) (n-1) + (Tinsert best) (n-1)
+--                   = 1 + (TiSort best) (n-1) +2
+--                   = 3 + (TiSort best) (n-1)
+--                   = 3 + 3 + (TiSort best) (n-2) = 3 + 3 + 3 (TiSort best) (n-3)
+--                   = 3 * n + (TiSort best) (0) = 3n +1
+
+-- (TiSort worst) (n) = 1 + (TiSort worst) (n-1) + (TiSort worst) (n-1)
+--                    = 1 + (TiSort worst) (n-1) + 2 * (n-1) + 1 = 1 + 2n - 2 + 1 + (TiSort worst) (n-1)
+--                    = 2n + (TiSort worst) (n-1)
+--                    = 2n + 2(n-1) + (TiSort worst) (n-2)
+--                    = 2n + 2(n-1) + 2(n-2) + (TiSort worst) (n-3)
+--                    = 2n + 2(n-1) + 2(n-2) + ... + 2 + 1
+--                    = 1 + (Summe von i=1 bis n)+2i = 1 + 2 * (Summe von i=1 bis n)+i
+--                    = 1 + 2 * (n*(n+1))/2 = 1 + n^2 + n
+
+-- (TiSort average) (n) = 1 + (TiSort average) (n-1) + (TiSort average) (n-1)
+--                      = 1 + ((n-1)+2) + (TiSort average) (n-1)
+--                      = (n+2) + (TiSort average) (n-1)
+--                      = (n+2) + (n+1) + n + (n-1) + ... + 3 + 1
+--                      = 1 + (Summe von i=3 bis n+2)+i
+--                      = 1 + ((n+2)*(n+3))/2 - 3 = (n^2 + 5n +6)/2 - 2
+
+tail :: [a] -> [a]
+tail (x:xs) = xs
+
+splitAt :: Int -> [a] -> ([a], [a])
+splitAt 0 list = ([], list)
+splitAt n [] = ([], [])
+splitAt n (x,xs) =
+    let (xs, ys) = splitAt (n-1) xs
+    in (x:xs, ys)
+
+-- Ktail (n) = 1 Element von O(1)
+-- KsplitAt (n,m)
+-- KsplitAt (0,m) = 1 Element von O(1)
+-- KsplitAt (n,0) = 1 Element von O(1)
+-- KsplitAt (n,m) = 2 + KsplitAt (n-1,m-1)
+--                = 2 + 2 KsplitAt (n-2,m-2)
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] ys = ys
+merge xs [] =xs
+merge (x:xs) (y:ys) =
+    if x <= y then (x : merge xs (y:ys))
+    else (y : merge (x:xs) ys)
+
+mergeSort :: Ord a => [a] -> [a]
+mergeSort [] = []
+mergeSort [x] = [x]
+mergeSort list = 
+    let len = length list
+        i = div len 2
+        (lower, upper) = splitAt i list
+    in merge (mergeSort lower) (mergeSort upper)
+
+madd1 :: Int -> Int -> Int
+madd1 x y = x+y+3
+--madd1 2 7 -> 12
+
+madd :: (Int,Int) -> Int
+madd (x,y) = x+y+3
+--madd(2,7) -> 12
+
+--l = lambda
+
+--alternativ
+--madd1 = lx -> ly -> x + y + 3
+--madd1 x = ly -> x+y+3
+--let f = madd1 2 -> (ly -> 2+y+3)
+--f3 -> 8
+--f4 -> 9
+
+twice :: (a -> a) -> a -> a
+twice fun val = fun (fun val)
+--twice not True -> not (not True) -> not False -> True
+--twice succ 7 -> succ (succ 7) -> succ 8 -> 9
+--twice (lx -> x*3)4 -> (lx -> x*3)((lx -> x*3)4) -> (lx -> x*3) 12 -> 36
+
+shift :: Double -> (Double -> Double) -> Double -> Double
+shift dx f x = f (x - dx)
+
+mirror :: (Double -> Double) -> Double -> Double
+mirror f x = f (-x)
+--mirror f = lx -> f(-x)
+
+stretch :: Double -> (Double -> Double) -> Double -> Double
+stretch r f x = f (x/r)
+
+compose :: (b -> c) -> (a -> b) -> a -> c
+compose g f x = g (f x)
+--x :: a ->(f)-> y :: b ->(g)-> z :: c
+--compose fac succ 2 -> fac(succ 2) -> fac 3 -> 6
+--compose succ (fac 2) -> succ 2 -> 3
+
+--(^) :: (a -> a) -> Int -> a -> a
+--f^n = lx -> if (n == 0) then x else f^(n-1)(f x)
+--let f == (lx -> x + 2) in (f^3) 7 
+-- -> if(3==0) then 7 else f^(3 - 1)(f 7) -> f^2 (f 7) -> (f^2) 9 -> (f^1)(f 9) -> (f^1)(11) -> (f^0)(f 11) -> (f^0)13 -> 13
+
+add :: (Int,Int) -> Int
+add (x,y) = x+y
+--gesucht : äquivalente Funktion mit Int -> Int -> Int
+curry :: ((a,b) -> c) -> a -> b -> c
+curry f x y = f(x,y)
+--add1 = curry add
+
+add1 :: Int -> Int -> Int
+add1 x y = x+y
+--gesucht : äquivalente Funtkion vom typ (Int,Int) -> Int
+uncurry :: (a -> b -> c) -> ((a,b) -> c)
+uncurry f (x,y) = f x y
+--add = uncurry add1
+
+take,drop :: Int -> [a] -> [a]
+(1) Take n xs = []
+(2) take n [] = []
+(3) take n (x:xs) = x:take (n-1) xs
+(4) drop 0 xs = xs
+(5) drop n [] = []
+(6) drop n (x:xs) = drop(n-1) xs
+
+splitAt :: Int -> [a] -> ([a],[a])
+(7) splitAt n xs = (take n xs, drop n xs)
+    splitAt 0 xs = (take 0 xs, drop 0 xs)
+    splitAt 0 xs = ([], drop 0 xs)
+    splitAt 0 xs = ([], xs)
+    
+    splitAt n [] = (take n [], drop n [])
+    splitAt n [] = ([], drop n [])
+    splitAt n [] = ([], [])
+
+    splitAt n (x:xs) = (take n (x:xs), drop n (x:xs))
+    splitAt n (x:xs) = (x:take(n-1) xs, drop n (x:xs))
+    splitAt n (x:xs) = (x:take(n-1) xs, drop (n-1) xs)
+    splitAt n (x:xs) = (x:ys,zs) where
+        ys,zs = splitAt (n-1) xs
+    splitAt n (x:xs) = (x:ys,zs) where
+        (ys,zs) = splitAt (n-1) xs
+
+Baumstrukturen :
+data List a = Nil               data [a] = []
+    | Cons a (List a)               | (:) a [a]
+
+insertSorted :: Ord a => a -> [a] -> Bool
+
+delete :: Ord a => a -> [a] -> [a]
+
+data Tree a = leaf
+    | Node a (Tree a) (Tree a)
+
+insertTree :: Ord a => a -> Tree a -> Tree a
+insertTree a Leaf = Node a Leaf Leaf
+insertTree a t@(Node n l r) = 
+    if (a == n) 
+    then t 
+    else if a < n 
+    then (Node n (insertTree a l) r)
+    else (Node n l (insertTree a r))
+
+searchTree :: Ord a => a -> Tree a -> Bool
+
+delete :: Ord a => Tree a -> Tree a
+delete a Leaf = Leaf
+delete a t@(Node n Leaf Leaf) = 
+    if (a == n) 
+    then Leaf 
+    else t
+
+delete a t@(Node n l Leaf) = 
+    if (a == n)
+    then l
+    else if (a < n)
+    then (Node n (delete a l) Leaf)
+    else
+
+delete a t@(Node n l r) =
+    if (a == n)
+    then 
+        let x = findMin r
+             r' = delete x r
+        in (Node x l r')
+    else if (a < n) 
+    then (Node n (delete a l) r)
+    else (Node n l (delete a r))
+
+size :: Tree a -> Int
+size Leaf = 0
+size (Node a l r) = 1 + size l + size r
+
+height :: Tree a -> Int
+height Leaf = 0
+height (Node a l r) = 1 + max(height l, height r) 
+
+treeMap :: (a -> b) -> Tree a -> Tree b
+treeMap f Leaf = Leaf
+treeMap f (Node a l r) = Node (fa) (map f l) (map f r)
+
+treeFold :: (a -> b -> b -> b) -> b -> Tree a -> b
+treeFold f e Leaf = e
+treeFold f e (Node a l r) = f a (treeFold f e l) (treeFold f e r)
+
+data [a] = []
+    | (:) a [a]
+
+data BinOp = Mul | Add | ...
+
+eval :: Expr -> Int
+eval (Const a) = a 
+eval (Op add ea eb) = 
+    let vea = eval ea
+        veb = eval eb
+    in vea + veb
+eval (Op Div ea eb) = 
+    let vea = eval ea
+        veb = eval eb
+    in if (veb == 0) then error "div by zero"
+    else vea `div` veb
+
+printPost :: Expr -> String
+printPost (Const i) = show i
+printPost (Op op e1 e2) = printPost e1 ++ " " ++ printpost e2 ++ " " ++ printOp op  
+
+module Heap (
+    ...
+)

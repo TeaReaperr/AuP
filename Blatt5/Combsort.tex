@@ -1,0 +1,49 @@
+\documentclass[a4paper, 12pt, ngerman]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{lmodern}
+\usepackage[table,x11names]{xcolor}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+
+\begin {document}
+    \begin{center}
+        \textbf {Combsort}
+    \end{center}
+\noindent
+\textbf {Aufgabe 4}\\
+1.\\
+Das Bubblesort verfahren funktioniert so, dass das erste Element der Liste darauf untersucht wird, ob es größer oder kleiner als der Nachfolger ist. wenn das Element kleiner ist ändert sich nicht und wenn das Element größer ist, tauschen die beiden ihre Plätze. Dann wird die Liste am zweiten und dritten untersucht, dann am dritten und vierten usw, bis das Ender erreicht ist und wieder am Anfang begonnen wird. Das passiert dann so lang, bis die Zahlen in Aufsteigender Reihenfolge sortiert sind.\\
+2.\\
+Das Combsort Verfahren ist dem Bubblesort sehr ähnlich, nur dass es gröber anfängt. Zum Anfang wird die Listenlänge mit 1,3 Dividiert und das Ergebnis ist die Stelle des Endpunktes. Bei einer Liste der Länge 10 wäre das Ergebnis 7, da immer Abgerundet wird. Also ist der Startpunkt 0 und der Endpunkt das Element 7. Dann 1->8 und 2->9. Danach wird die 7 wieder mit 1,3 Dividiert und der Rest ist die neue Untersuchungslänge, dann dieser Rest, dann der Rest davon usw., bis am Ende auch wieder alles aufsteigend sortiert ist. (Bei Aufgabe 3. steht Index 1 ist das erste, benutze ich trotzdem nicht, da 0 als Start angenehmer ist und ich das in PP schon so machen musste :3)\\
+\newpage
+\noindent 3.\\
+	\begin{tabular}{|c*{10}{|c}|}
+		\hline
+		\rowcolor{cyan}Gap & \multicolumn{8}{c}{Resultierendes Array} \vline & \multicolumn{2}{c}{vertauschte Elemente}\vline\\
+		\hline
+		/ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & Index 1 & Index 2\\
+		\hline
+		/ & b & f & d & h & g & c & e & a & - & -\\
+		\hline
+		Start & - & - & - & - & - & - & - & - & - & -\\
+		\hline
+		8 & b & f & d & h & g & c & e & a & - & -\\
+		\hline
+		6 & b & a & d & h & g & c & e & f & 2 & 8\\
+		\hline
+		4 & b & a & d & f & g & c & e & h & 4 & 8\\
+		\hline
+		3 & b & a & c & e & g & d & f & h & 3;4  & 6;7\\	
+		\hline
+		2 & b & a & c & e & d & f & g & h & 5;6 & 6;7\\
+		\hline
+		1 & a & b & c & d & e & f & g & h & 1;2 & 4;5\\
+		\hline
+		Ende & a & b & c & d & e & f & g & h & - & -\\
+		\hline
+	\end{tabular}\\
+--hab mein bestes bei der Tabellenerstellung gegeben (LaTeX Gott)
+\end {document}

@@ -1,0 +1,80 @@
+\documentclass[a4paper, 12pt, ngerman]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{lmodern}
+
+\begin {document}
+	\begin {center}
+	\textbf{Aufgabenblatt-03}
+	\end {center}
+
+
+\noindent \textbf{Aufgabe 1}\\
+f1\\
+Funktion\\
+Wenn $a+b=c$ sein soll, aber a immer gleich bleibt und sich nur b  durch b1, 
+b2 verändert muss c bei gleichbleibendem a ein anderes Ergebnis haben und 
+somit gilt die Rechtseindeutigkeit.
+f2\\
+Funktion\\
+Dadurch, dass $ax^2 + bx + c = dx^2 + ex + f$ sein muss, muss $a=d, b=e$ und 
+$c=f$ gelten, weil sonst nicht garantiert der selbe Wert herauskommt.\\
+f3\\
+Keine Funktion\\
+Nehmen wir an $f(b) = x^2 -1$ dann stimmt die Voraussetzung $f(b) = 0$, 
+wenn $x = 1$ ist. Durch das Quadrat stimmt allerdings auch $x = -1$ und 1 $\neq$ -1\\
+f4\\
+Keine Funktion\\
+Aufgrund der Rechtseindeutigkeit nehmen wir an, dass es ein Tupel $(a,b1)$ 
+und ein Tupel $(a,b2)$ gibt, wobei b1 $\neq$ b2 ist. Zum Beispiel bin ich a, Yannick
+ist b1 und Maik ist b2. Wir gehören alle zu der Menge S, da wir alle Studenten
+sind, aber weil Yannick $\neq$ Maik ist gilt die Rechtseindeutigkeit nicht.\\
+f5\\
+Funktion\\
+B ist die Menge von allen Studenten, die einen Studenten kennen und weil B in der 
+Potenzmenge der Studenten vorhanden ist, sind auch alle Kombinationen davon vorhanden.\\
+
+\noindent \textbf{Aufgabe 3}\\
+1.\\
+a = T - erstes Element von lösche\\
+b = String - erstes Element aus T\\
+c = Int - zwietes Element aus T\\
+d = String - erstes Element aus T\\
+e = Int - zweites Element aus T\\
+f = TListe - zweites Element der nicht leeren Liste\\
+g = T - erstes Element von ersetze\\
+h = T - erstes Element der nicht leeren TListe\\
+i = String - erstes Element von T\\
+j = T - erstes Element der nicht leeren TListe\\
+k = String - erstes Element von T\\
+l = TListe - zweites Element aus nicht leerer Liste\\
+m = Int - hat predecessor und kann == 0 sein\\
+n = T - erstes Element nicht leere Liste\\
+o = TListe - zweites Element aus nicht leere Liste\\
+
+\newpage\noindent 2.\\
+liste1\\
+loesche (T Ernie 7) (NichtLeer (T Ernie 7) (NichtLeer (T Bert 9)\\
+(NichtLeer (T Bibo 7) Leer)))\\
+NichtLeer (T Bert 9) (NichtLeer (T Bibo 7) Leer)\\
+\noindent\\
+liste2\\
+ersetze (T Bibo 9) (NichtLeer (T Ernie 8) (NichtLeer (T Bibo 7) Leer))\\
+NichtLeer (T Ernie 8) (ersetze (T Bibo 9) (NichtLeer (T Bibo 7) Leer))\\
+NichtLeer (T Ernie 8) (NichtLeer (T Bibo 9) (ersetze (T Bibo 7) Leer))\\
+NichtLeer (T Ernie 8) (NichtLeer (T Bibo 9) Leer)\\
+\noindent\\
+liste3\\
+ersetze (T Bibo 9) (NichtLeer (T Bibo 8) (NichtLeer (T Bibo 7) Leer))\\
+NichtLeer (T Bibo 9) (ersetze (T Bibo 9) (NichtLeer (T Bibo 7) Leer))\\
+NichtLeer (T Bibo 9) (NichtLeer (T Bibo 9) (ersetze (T Bibo 9)\\
+(NichtLeer (T Bibo 7) Leer)))\\
+NichtLeer (T Bibo 9) (NichtLeer (T Bibo 9) Leer)\\
+\noindent\\
+liste3\\
+findeAnIdx 1 (NichtLeer (T Bibo 8) (NichtLeer (T Bibo 7) Leer))\\
+findeAnIdx 0 (NichtLeer (T Bibo 7) Leer)\\
+Doch (T Bibo 7)
+
+\end {document}
