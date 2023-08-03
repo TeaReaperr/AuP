@@ -21,5 +21,6 @@ auf der rechten Seite wird bei der zweiten Eingabe nur noch mit depth links und 
 was <= depth von dem Tree ist und somit terminiert diese Seite.
 Also gilt max depth links/rechts ist mindestens 1 kleiner als die max depth vom Baum.
 
+meow
 (N, <=)
 -}
